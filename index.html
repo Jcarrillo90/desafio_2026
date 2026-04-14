@@ -274,7 +274,7 @@ tr:last-child td{border-bottom:none}tr:hover td{background:var(--rojo-l)}
         <div class="tw-wrap"><span class="tw-i">🔍</span><input class="in" id="ben-q" placeholder="Buscar nombre, folio..." oninput="renderBen()"></div>
         <select class="sel" id="ben-centro" onchange="renderBen()"><option value="">Todos los centros</option></select>
         <select class="sel" id="ben-gen" onchange="renderBen()"><option value="">Todas las gen.</option></select>
-        <select class="sel" id="ben-tipo" onchange="renderBen()"><option value="">G y CA</option><option value="G">Programa G</option><option value="CA">Programa CA</option></select>
+        
         <select class="sel" id="ben-status" onchange="renderBen()"><option value="activo">Activos</option><option value="baja">Bajas</option><option value="">Todos</option></select>
       </div>
     </div>
@@ -323,7 +323,7 @@ tr:last-child td{border-bottom:none}tr:hover td{background:var(--rojo-l)}
     <div class="tb">
       <select class="sel" id="asi-gen" onchange="renderAsiTab()"><option value="">Todas las gen.</option></select>
       <select class="sel" id="asi-centro" onchange="renderAsiTab()"><option value="">Todos los centros</option></select>
-      <select class="sel" id="asi-tipo" onchange="renderAsiTab()"><option value="">G y CA</option><option value="G">Solo G</option><option value="CA">Solo CA</option></select>
+      
       <select class="sel" id="asi-mes" onchange="renderAsiTab()"></select>
     </div>
     <div id="asi-info" class="nota" style="display:none"></div>
@@ -383,7 +383,7 @@ tr:last-child td{border-bottom:none}tr:hover td{background:var(--rojo-l)}
   <div class="card"><div class="ch">
     <div class="ct">📊 Beneficiarios únicos por actividad</div>
     <div style="display:flex;gap:6px;flex-wrap:wrap">
-      <select class="sel" id="uniq-tipo" onchange="renderUnicos()"><option value="G">Programa G</option><option value="CA">Programa CA</option></select>
+      <select class="sel" id="uniq-tipo" onchange="renderUnicos()"><option value="G">Actividades G</option><option value="CA">Actividades CA</option></select>
       <select class="sel" id="uniq-gen" onchange="renderUnicos()"><option value="">Todas las gen.</option></select>
       <button class="btn btn-sm" onclick="expUnicosXLSX()">⬇ Excel</button>
     </div>
@@ -469,9 +469,18 @@ tr:last-child td{border-bottom:none}tr:hover td{background:var(--rojo-l)}
 const MESES=['Enero26','Febrero26','Marzo26','Abril26','Mayo26','Junio26','Julio26','Agosto26','Septiembre26','Octubre26','Noviembre26','Diciembre26','Enero27','Febrero27','Marzo27','Abril27','Mayo27','Junio27'];
 const ACTS_32=["1.1.1 Cap. Facilitadores", "1.1.2 Fase 0", "1.2.1 Fase 1", "1.2.2 Taller de empleabilidad", "1.2.3 Taller de participación ciudadana", "1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "2.1.1 CENALTEC", "2.1.2 ISAC", "2.1.3 Celebrity", "2.2.1 Taller de emprendimiento", "2.2.2 Presentación de proyectos productivos", "2.2.3 Taller de prototipado", "2.3.1 Cap. Educación financiera", "3.1.1 Empresas aliadas", "3.1.2 Feria de empleo", "3.2.1 Plática de oferta educativa", "3.2.2 Asesorías laborales", "3.2.3 Fase 3", "3.3.1 Fase 4", "3.3.2 Graduación", "3.3.3 Fase 5", "2.3-2.4 Plática de salud mental", "2.7-2.8 Encuentro deportivo", "4.1.1 Reclutamiento CA", "4.1.2 Conformación de grupos", "4.2.1 Taller de habilidades socioemocionales", "4.2.2 Taller de empleabilidad", "4.3.1 Capacitación en habilidades digitales e inglés", "4.3.2 Graduación", "4.3.3 Seguimiento a egresados"];
 const ACTS_G=ACTS_32.slice(0,25);
-const ACTS_CA=ACTS_32.slice(25);
-// ACTS_G defined above from ACTS_32 //['1.1.1 Cap. Facilitadores','1.1.2 Fase 0','1.2.1 Fase 1','1.2.2 Taller de empleabilidad','1.2.3 Taller de participación ciudadana','1.3.1 Atención psicológica','1.3.2 Enlace familiar','1.3.3 Atención psiquiátrica','2.1.1 CENALTEC','2.1.2 ISAC','2.1.3 Celebrity','2.2.1 Taller de emprendimiento','2.2.2 Presentación de proyectos productivos','2.2.3 Taller de prototipado','2.3.1 Cap. Educación financiera','3.1.1 Empresas aliadas','3.1.2 Feria de empleo','3.2.1 Plática de oferta educativa','3.2.2 Asesorías laborales','3.2.3 Fase 3','3.3.1 Fase 4','3.3.2 Graduación','3.3.3 Fase 5','2.3-2.4 Plática de salud mental','2.7-2.8 Encuentro deportivo'];
-const ACTS_CA=['1.3.1 Atención psicológica','1.3.2 Enlace familiar','1.3.3 Atención psiquiátrica','4.1.1 Reclutamiento CA','4.1.2 Conformación de grupos','4.2.1 Taller de habilidades socioemocionales','4.2.2 Taller de empleabilidad','4.3.1 Capacitación en habilidades digitales e inglés','4.3.2 Graduación','4.3.3 Seguimiento a egresados'];
+const ACTS_CA=[
+  '1.3.1 Atención psicológica',
+  '1.3.2 Enlace familiar',
+  '1.3.3 Atención psiquiátrica',
+  '4.1.1 Reclutamiento CA',
+  '4.1.2 Conformación de grupos',
+  '4.2.1 Taller de habilidades socioemocionales',
+  '4.2.2 Taller de empleabilidad',
+  '4.3.1 Capacitación en habilidades digitales e inglés',
+  '4.3.2 Graduación',
+  '4.3.3 Seguimiento a egresados'
+];
 const CENTROS_G=['FRIDA KAHLO','GRANJAS DE CHAPULTEPEC','KM29','MUNICIPIO LIBRE','OASIS','ORATORIO LUPITA','PARQUE CENTRAL','RIBERAS DEL BRAVO','SAN ANTONIO','TIERRA NUEVA','UACJ'];
 const EXCLUSIVOS=['2.1.1 CENALTEC','2.1.2 ISAC','2.1.3 Celebrity'];
 const SCHEDULE={"G28": {"1": ["3.3.3 Fase 5"], "2": ["3.3.3 Fase 5"], "3": [], "4": [], "5": [], "6": []}, "G29": {"1": ["2.1.1 CENALTEC", "2.1.2 ISAC", "2.1.3 Celebrity", "1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "3.2.1 Plática de oferta educativa", "3.2.2 Asesorías laborales"], "2": ["2.1.1 CENALTEC", "2.1.2 ISAC", "2.1.3 Celebrity", "1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "3.2.1 Plática de oferta educativa", "3.2.2 Asesorías laborales", "3.2.3 Fase 3", "3.3.1 Fase 4", "3.3.2 Graduación"], "3": ["3.3.3 Fase 5"], "4": ["3.3.3 Fase 5"], "5": [], "6": []}, "G30": {"1": ["1.1.1 Cap. Facilitadores", "1.1.2 Fase 0", "1.2.1 Fase 1", "1.2.2 Taller de empleabilidad", "1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "2.3-2.4 Plática de salud mental"], "2": ["1.2.1 Fase 1", "1.2.2 Taller de empleabilidad", "1.2.3 Taller de participación ciudadana", "2.7-2.8 Encuentro deportivo", "1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "2.1.1 CENALTEC", "2.1.2 ISAC", "2.1.3 Celebrity", "2.2.1 Taller de emprendimiento"], "3": ["1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "2.1.1 CENALTEC", "2.1.2 ISAC", "2.1.3 Celebrity", "2.2.1 Taller de emprendimiento", "2.2.2 Presentación de proyectos productivos", "2.2.3 Taller de prototipado", "2.3.1 Cap. Educación financiera", "3.2.1 Plática de oferta educativa", "3.2.2 Asesorías laborales", "3.2.3 Fase 3", "3.3.1 Fase 4"], "4": ["1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "2.1.1 CENALTEC", "2.1.2 ISAC", "2.1.3 Celebrity", "3.2.2 Asesorías laborales", "3.2.3 Fase 3", "3.3.1 Fase 4", "3.3.2 Graduación"], "5": ["1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "2.1.1 CENALTEC", "2.1.2 ISAC", "2.1.3 Celebrity", "3.2.3 Fase 3", "3.3.1 Fase 4", "3.3.3 Fase 5"], "6": ["1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "2.1.1 CENALTEC", "2.1.2 ISAC", "2.1.3 Celebrity", "3.2.3 Fase 3", "3.3.1 Fase 4", "3.3.3 Fase 5"]}, "G31": {"1": [], "2": ["1.1.2 Fase 0"], "3": ["1.1.2 Fase 0", "1.2.1 Fase 1", "1.2.2 Taller de empleabilidad", "1.2.3 Taller de participación ciudadana", "1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "2.1.1 CENALTEC", "2.1.2 ISAC", "2.1.3 Celebrity", "2.3-2.4 Plática de salud mental"], "4": ["1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "2.1.1 CENALTEC", "2.1.2 ISAC", "2.1.3 Celebrity", "2.2.1 Taller de emprendimiento", "2.3.1 Cap. Educación financiera", "2.7-2.8 Encuentro deportivo"], "5": ["1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "2.1.1 CENALTEC", "2.1.2 ISAC", "2.1.3 Celebrity", "2.2.2 Presentación de proyectos productivos", "2.2.3 Taller de prototipado", "2.3.1 Cap. Educación financiera", "3.2.1 Plática de oferta educativa", "3.2.2 Asesorías laborales", "3.2.3 Fase 3"], "6": ["1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "2.1.1 CENALTEC", "2.1.2 ISAC", "2.1.3 Celebrity", "3.2.2 Asesorías laborales", "3.2.3 Fase 3", "3.3.1 Fase 4", "3.3.2 Graduación"]}, "G32": {"1": [], "2": [], "3": [], "4": [], "5": ["1.1.2 Fase 0", "1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "1.2.1 Fase 1", "2.3-2.4 Plática de salud mental", "1.2.2 Taller de empleabilidad", "1.2.3 Taller de participación ciudadana"], "6": ["1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "1.2.1 Fase 1", "2.3-2.4 Plática de salud mental", "1.2.2 Taller de empleabilidad", "1.2.3 Taller de participación ciudadana", "2.1.1 CENALTEC", "2.1.2 ISAC", "2.1.3 Celebrity"]}, "Facilitadores": {"1": ["1.1.1 Cap. Facilitadores"], "2": [], "3": [], "4": [], "5": [], "6": []}, "CA5": {"1": ["1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "4.2.1 Taller de habilidades socioemocionales", "4.2.2 Taller de empleabilidad", "4.3.1 Capacitación en habilidades digitales e inglés"], "2": ["1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "4.3.1 Capacitación en habilidades digitales e inglés", "4.3.2 Graduación"], "3": ["1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "4.3.1 Capacitación en habilidades digitales e inglés", "4.3.2 Graduación", "4.3.3 Seguimiento a egresados"], "4": [], "5": [], "6": []}, "CA6": {"1": [], "2": [], "3": ["4.1.1 Reclutamiento CA", "4.1.2 Conformación de grupos"], "4": ["4.1.2 Conformación de grupos", "4.2.1 Taller de habilidades socioemocionales", "4.3.1 Capacitación en habilidades digitales e inglés", "1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica"], "5": ["4.2.1 Taller de habilidades socioemocionales", "4.2.2 Taller de empleabilidad", "4.3.1 Capacitación en habilidades digitales e inglés", "1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica"], "6": ["4.2.2 Taller de empleabilidad", "4.3.1 Capacitación en habilidades digitales e inglés", "1.3.1 Atención psicológica", "1.3.2 Enlace familiar", "1.3.3 Atención psiquiátrica", "4.3.2 Graduación"]}};
@@ -519,7 +528,7 @@ const PERIODOS=[
 // ═══════════════════════════════════════════
 // SUPABASE CLIENT
 // ═══════════════════════════════════════════
-let SB_URL='', SB_KEY='', DB_READY=false;
+let SB_URL='', SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNiZXh3a3RvcmVndGFnem9leWRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwOTc5MTUsImV4cCI6MjA5MTY3MzkxNX0.SC5jUXK_m5dlJusdM3KIzN8K162HPJQcDgJTlJP56v4', DB_READY=false;
 
 // Supabase REST API calls
 async function sbFetch(path, method='GET', body=null){
@@ -588,7 +597,7 @@ function resetCfg(){
   document.getElementById('app').classList.remove('show');
   document.getElementById('cfg-screen').style.display='flex';
   document.getElementById('cfg-status').textContent='';
-  SB_URL='';SB_KEY='';DB_READY=false;
+  SB_URL='';SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNiZXh3a3RvcmVndGFnem9leWRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwOTc5MTUsImV4cCI6MjA5MTY3MzkxNX0.SC5jUXK_m5dlJusdM3KIzN8K162HPJQcDgJTlJP56v4';DB_READY=false;
 }
 
 async function iniciarApp(){
@@ -711,7 +720,7 @@ function renderBen(){
   const q=(document.getElementById('ben-q').value||'').toLowerCase();
   const centro=document.getElementById('ben-centro').value;
   const gen=document.getElementById('ben-gen').value;
-  const tipo=document.getElementById('ben-tipo').value;
+  const tipo='';
   const status=document.getElementById('ben-status').value;
   let data=bens.filter(b=>{
     if(status==='activo'&&b.baja)return false;if(status==='baja'&&!b.baja)return false;
@@ -809,7 +818,7 @@ function renderAsiInit(){
 function renderAsiTab(){
   const gen=document.getElementById('asi-gen').value;
   const centro=document.getElementById('asi-centro').value;
-  const tipo=document.getElementById('asi-tipo').value;
+  const tipo='';
   curAsiMes=document.getElementById('asi-mes').value||'Enero26';
   let benList=bens.filter(b=>{
     if(b.baja)return false;
@@ -1134,83 +1143,53 @@ function renderUnicos(){
   if(fg){const gv=fg.value;fg.innerHTML='<option value="">Todas las gen.</option>'+gens.map(g=>`<option${g===gv?' selected':''}>${g}</option>`).join('');}
   const bensTipo=bens.filter(b=>b.tipo===tipo&&(!genFil||b.gen===genFil));
   const benIds=new Set(bensTipo.map(b=>b.id));
-
-  // Paso 1: para cada ben x actividad, encontrar el PRIMER trimestre con sesiones
+  // Para cada ben x actividad: primer trimestre con sesiones
   const firstTri={};
   asis.forEach(a=>{
     if(!benIds.has(a.benId))return;
     const tri=getTri(a.mes);if(!tri)return;
     Object.entries(a.acts||{}).forEach(([act,val])=>{
-      if(+val>0){
-        const key=a.benId+'|'+act;
-        if(!firstTri[key]||tri<firstTri[key])firstTri[key]=tri;
-      }
+      if(+val>0){const key=a.benId+'|'+act;if(!firstTri[key]||tri<firstTri[key])firstTri[key]=tri;}
     });
   });
-
-  // Paso 2: acumular en contadores por actividad
-  const firstCount={};const globalSet={};
-  acts.forEach(a=>{
-    firstCount[a]={1:new Set(),2:new Set(),3:new Set(),4:new Set(),5:new Set(),6:new Set()};
-    globalSet[a]=new Set();
-  });
+  // Contadores por actividad (solo primer trimestre)
+  const fc={};const gs={};
+  acts.forEach(a=>{fc[a]={1:new Set(),2:new Set(),3:new Set(),4:new Set(),5:new Set(),6:new Set()};gs[a]=new Set();});
   Object.entries(firstTri).forEach(([key,tri])=>{
-    const sep=key.indexOf('|');
-    const benId=key.substring(0,sep),act=key.substring(sep+1);
-    if(firstCount[act]){firstCount[act][tri].add(benId);globalSet[act].add(benId);}
+    const sep=key.indexOf('|');const bid=key.substring(0,sep),act=key.substring(sep+1);
+    if(fc[act]){fc[act][tri].add(bid);gs[act].add(bid);}
   });
-
-  // Paso 3: TOTAL GLOBAL — un ben cuenta en el primer tri que aparece en CUALQUIER actividad
-  const totalFirst={1:new Set(),2:new Set(),3:new Set(),4:new Set(),5:new Set(),6:new Set()};
-  const totalGlobal=new Set();
-  const benFirstAny={};
+  // Total global: primer tri que aparece en cualquier actividad
+  const tf={1:new Set(),2:new Set(),3:new Set(),4:new Set(),5:new Set(),6:new Set()};
+  const tg=new Set();const bf={};
   Object.entries(firstTri).forEach(([key,tri])=>{
-    const benId=key.substring(0,key.indexOf('|'));
-    if(!benIds.has(benId))return;
-    if(!benFirstAny[benId]||tri<benFirstAny[benId])benFirstAny[benId]=tri;
-    totalGlobal.add(benId);
+    const bid=key.substring(0,key.indexOf('|'));
+    if(!benIds.has(bid))return;
+    if(!bf[bid]||tri<bf[bid])bf[bid]=tri;
+    tg.add(bid);
   });
-  Object.entries(benFirstAny).forEach(([benId,tri])=>totalFirst[tri].add(benId));
-
+  Object.entries(bf).forEach(([bid,tri])=>tf[tri].add(bid));
   const head=document.getElementById('uniq-head');
   const body=document.getElementById('uniq-body');
   if(!head||!body)return;
-
   head.innerHTML=`<tr>
     <th style="min-width:220px;position:sticky;left:0;z-index:2;background:var(--negro-2);color:rgba(255,255,255,.8);padding:9px 12px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.04em">Actividad</th>
-    ${[1,2,3,4,5,6].map(t=>`<th style="text-align:center;background:var(--negro);color:rgba(255,255,255,.8);padding:9px 10px;font-size:10px;text-transform:uppercase;white-space:nowrap;border-right:1px solid rgba(255,255,255,.08)">T${t}<br><span style="font-weight:400;font-size:9px;color:rgba(255,255,255,.5)">${TRI_LABEL[t]}</span></th>`).join('')}
+    ${[1,2,3,4,5,6].map(t=>`<th style="text-align:center;background:var(--negro);color:rgba(255,255,255,.8);padding:9px 10px;font-size:10px;white-space:nowrap;border-right:1px solid rgba(255,255,255,.08)">T${t}<br><span style="font-weight:400;font-size:9px;color:rgba(255,255,255,.5)">${TRI_LABEL[t]}</span></th>`).join('')}
     <th style="text-align:center;background:var(--negro-2);color:var(--oro);padding:9px 10px;font-size:10px;text-transform:uppercase">GLOBAL<br><span style="font-weight:400;font-size:9px;opacity:.7">todo el periodo</span></th>
   </tr>`;
-
-  const tdN=(n,bg)=>n>0
-    ?`<td style="text-align:center;font-weight:700;font-family:var(--mo);color:${bg?'var(--rojo-d)':'#fff'};background:${bg||'transparent'};padding:6px 10px;border-bottom:1px solid var(--g2);border-right:1px solid var(--g3)">${n}</td>`
-    :`<td style="text-align:center;color:var(--t3);padding:6px 10px;border-bottom:1px solid var(--g2);border-right:1px solid var(--g3)">—</td>`;
-
-  const actRows=acts.map(a=>{
-    const hasAny=[1,2,3,4,5,6].some(t=>firstCount[a][t].size>0)||globalSet[a].size>0;
-    const cells=[1,2,3,4,5,6].map(t=>tdN(firstCount[a][t].size,'var(--wd)')).join('');
-    const g=globalSet[a].size;
-    return`<tr>
-      <td style="font-size:11.5px;font-weight:500;padding:6px 12px;border-bottom:1px solid var(--g2);position:sticky;left:0;background:var(--wd);z-index:1">${a}</td>
-      ${cells}
-      <td style="text-align:center;font-weight:700;font-family:var(--mo);color:var(--oro-d);background:var(--oro-l);padding:6px 10px;border-bottom:1px solid var(--g2)">${g||'—'}</td>
-    </tr>`;
-  }).join('');
-
-  const totalCells=[1,2,3,4,5,6].map(t=>{
-    const n=totalFirst[t].size;
-    return n>0
-      ?`<td style="text-align:center;font-weight:700;font-family:var(--mo);color:var(--oro);background:var(--negro-2);padding:8px 10px;border-right:1px solid rgba(255,255,255,.1)">${n}</td>`
-      :`<td style="text-align:center;color:rgba(255,255,255,.3);background:var(--negro-2);padding:8px 10px;border-right:1px solid rgba(255,255,255,.1)">—</td>`;
-  }).join('');
-
+  const td=(n)=>n>0?`<td style="text-align:center;font-weight:700;font-family:var(--mo);color:var(--rojo-d);padding:6px 10px;border-bottom:1px solid var(--g2);border-right:1px solid var(--g3)">${n}</td>`:`<td style="text-align:center;color:var(--t3);padding:6px 10px;border-bottom:1px solid var(--g2);border-right:1px solid var(--g3)">—</td>`;
+  const actRows=acts.map(a=>`<tr>
+    <td style="font-size:11.5px;font-weight:500;padding:6px 12px;border-bottom:1px solid var(--g2);position:sticky;left:0;background:var(--wd);z-index:1">${a}</td>
+    ${[1,2,3,4,5,6].map(t=>td(fc[a][t].size)).join('')}
+    <td style="text-align:center;font-weight:700;font-family:var(--mo);color:var(--oro-d);background:var(--oro-l);padding:6px 10px;border-bottom:1px solid var(--g2)">${gs[a].size||'—'}</td>
+  </tr>`).join('');
+  const totCells=[1,2,3,4,5,6].map(t=>{const n=tf[t].size;return n>0?`<td style="text-align:center;font-weight:700;font-family:var(--mo);color:var(--oro);background:var(--negro-2);padding:8px 10px;border-right:1px solid rgba(255,255,255,.1)">${n}</td>`:`<td style="text-align:center;color:rgba(255,255,255,.3);background:var(--negro-2);padding:8px 10px;border-right:1px solid rgba(255,255,255,.1)">—</td>`;}).join('');
   body.innerHTML=actRows+`<tr style="border-top:2px solid var(--rojo)">
     <td style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:8px 12px;background:var(--negro-2);color:var(--oro);position:sticky;left:0;z-index:1">▸ Total global</td>
-    ${totalCells}
-    <td style="text-align:center;font-weight:700;font-family:var(--mo);color:var(--negro);background:var(--oro);padding:8px 10px">${totalGlobal.size}</td>
+    ${totCells}
+    <td style="text-align:center;font-weight:700;font-family:var(--mo);color:var(--negro);background:var(--oro);padding:8px 10px">${tg.size}</td>
   </tr>`;
 }
-
 
 function expUnicosXLSX(){
   const tipo=document.getElementById('uniq-tipo')?.value||'G';
@@ -1238,7 +1217,7 @@ function cM(id,e){if(e&&!e.target.classList.contains('mbg'))return;document.getE
 // ═══════════════════════════════════════════
 (function(){
   SB_URL='https://cbexwktoregtagzoeydq.supabase.co';
-  SB_KEY='sb_publishable_gfXAN6Fwt6ya8kE0S1rJrg_-TPRtiyb';
+  SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNiZXh3a3RvcmVndGFnem9leWRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwOTc5MTUsImV4cCI6MjA5MTY3MzkxNX0.SC5jUXK_m5dlJusdM3KIzN8K162HPJQcDgJTlJP56v4';
   iniciarApp();
 })();
 </script>
