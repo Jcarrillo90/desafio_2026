@@ -239,6 +239,7 @@ tr:last-child td{border-bottom:none}tr:hover td{background:var(--rjl)}
     </div>
   </div><div class="cb">
     <div class="tb">
+      <div class="tw-wrap"><span class="tw-i">🔍</span><input class="in" id="asi-q" placeholder="Buscar beneficiario..." oninput="renderAsiTab()"></div>
       <select class="sel" id="asi-gen" onchange="renderAsiTab()"><option value="">Todas las gen.</option></select>
       <select class="sel" id="asi-centro" onchange="renderAsiTab()"><option value="">Todos los centros</option></select>
       <select class="sel" id="asi-mes" onchange="renderAsiTab()"></select>
@@ -751,10 +752,12 @@ function renderAsiTab(){
   const gen=document.getElementById('asi-gen').value;
   const centro=document.getElementById('asi-centro').value;
   curAsiMes=document.getElementById('asi-mes').value||'Enero26';
+  const q=(document.getElementById('asi-q')?.value||'').toLowerCase().trim();
   let benList=bens.filter(b=>{
     if(b.baja)return false;
     if(gen&&b.gen!==gen)return false;
     if(centro&&b.centro!==centro)return false;
+    if(q&&!(`${b.nombre} ${b.apat} ${b.amat} ${b.folio}`).toLowerCase().includes(q))return false;
     return true;
   });
   benList.sort((a,b)=>{const fa=parseInt(a.folio)||9999,fb=parseInt(b.folio)||9999;return fa-fb;});
@@ -789,13 +792,13 @@ function renderAsiTab(){
         const cls='ses-in'+(v>0?' hv':'')+(blocked?' blk':'');
         return`<td><input class="${cls}" type="number" min="0" max="99" value="${v||''}" placeholder="${blocked?'—':'0'}" ${blocked?'disabled title="No programada"':''} data-ben="${b.id}" data-act="${a}" oninput="onAsiInput(this)"></td>`;
       }).join('');
-      return`<tr><td class="scol"><div style="font-weight:700;font-size:12px">${b.nombre} ${b.apat}</div><div class="bi">${b.folio||''}${b.folio?' · ':''}${b.gen} · ${b.centro}</div></td>${cells}<td class="cap-sum" id="sum-${b.id}">${rowTotal||'—'}</td></tr>`;
+      return`<tr><td class="scol"><div style="font-weight:700;font-size:12px">${b.nombre} ${b.apat} ${b.amat||''}</div><div class="bi">${b.folio||''}${b.folio?' · ':''}${b.gen} · ${b.centro}</div></td>${cells}<td class="cap-sum" id="sum-${b.id}">${rowTotal||'—'}</td></tr>`;
     }).join('');
     const colTotals=acts.map(a=>{const t=bList.reduce((s,b)=>s+(+getVal(b.id,a)||0),0);return`<td style="text-align:center;font-weight:700;font-size:11px;font-family:var(--mo);color:var(--or)">${t||''}</td>`;}).join('');
     return`${label?`<div class="cap-plbl">⚽ ${label}</div>`:''}
       <div class="cap-wrap"><table class="cap-table">
         <thead><tr>
-          <th class="scol" style="min-width:200px;z-index:4">Beneficiario</th>
+          <th class="scol" style="min-width:240px;z-index:4">Beneficiario</th>
           ${header}
           <th style="min-width:52px;background:var(--rjd);color:#fff">Total</th>
         </tr></thead>
