@@ -1,0 +1,8 @@
+```javascript
+// ═══════════════════════════════════════════════════
+// DESAFÍO 2026 — Configuración de Supabase
+// ═══════════════════════════════════════════════════
+
+const SB_URL = 'https://cbexwktoregtagzoeydq.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNiZXh3a3RvcmVndGFnem9leWRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwOTc5MTUsImV4cCI6MjA5MTY3MzkxNX0.SC5jUXK_m5dlJusdM3KIzN8K162HPJQcDgJTlJP56v4';
+```
