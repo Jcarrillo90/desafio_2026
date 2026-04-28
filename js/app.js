@@ -383,14 +383,14 @@ function onAsiInput(el){
   const el2=document.getElementById('sum-'+benId);if(el2)el2.textContent=tot||'—';
 }
 async function guardarAsi(){
-  const entries=Object.entries(pendingAsi).filter(([,acts])=>Object.values(acts).some(v=>+v>0));
+  const entries=Object.entries(pendingAsi).filter(([,acts])=>Object.keys(acts).length>0);
   if(!entries.length){toast('No hay cambios que guardar');return;}
   showL(`Guardando ${entries.length} registro(s)...`);
   let ok=0,err=0;
   for(const[benId,newActs] of entries){
     try{
       const ex=asis.find(a=>a.benId===benId&&a.mes===curAsiMes);
-      const cleanActs=Object.fromEntries(Object.entries(ex?{...ex.acts,...newActs}:newActs).filter(([k,v])=>+v>0));
+      const cleanActs=Object.fromEntries(Object.entries(ex?{...ex.acts,...newActs}:newActs).filter(([k,v])=>+v>=0));
       await guardarAsistencia(benId,curAsiMes,cleanActs);
       if(ex){ex.acts=cleanActs;}else{asis.push({id:benId+'_'+curAsiMes,benId,mes:curAsiMes,acts:cleanActs});}
       ok++;
