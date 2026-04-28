@@ -1,7 +1,3 @@
-// ═══════════════════════════════════════════════════
-// DESAFÍO 2026 — Datos y constantes del programa
-// ═══════════════════════════════════════════════════
-
 const FAC_FOLIOS = new Set(['456','457','458','459','460','461','462','463']);
 
 const MESES = ['Enero26','Febrero26','Marzo26','Abril26','Mayo26','Junio26',
