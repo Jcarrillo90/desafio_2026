@@ -1,8 +1,3 @@
-// ═══════════════════════════════════════════════════
-// DESAFÍO 2026 — Lógica principal de la aplicación
-// REQUIERE: config.js y datos.js cargados antes
-// ═══════════════════════════════════════════════════
-
 // ═══ ESTADO GLOBAL ═══════════════════════════════
 let bens=[],asis=[],curBenId=null,pendingAsi={},curAsiMes='Enero26';
 
