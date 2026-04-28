@@ -101,7 +101,7 @@ async function init(){
       if(mes==='26 de febrero'||mes==='febrero 2026') mes='Febrero26';
       else if(mes==='26 de enero'||mes==='enero 2026') mes='Enero26';
       else if(mes==='26 de marzo'||mes==='marzo 2026') mes='Marzo26';
-      return{...a,benId:a.ben_id,mes,acts:a.acts||};
+      return{...a,benId:a.ben_id,mes,acts:a.acts||{}};
     });
     hideL();updTop();renderInicio();
   }catch(e){hideL();toast('❌ '+e.message.substring(0,120),'error');}
