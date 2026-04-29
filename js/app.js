@@ -94,18 +94,19 @@ async function init(){
       return{...b,folio,tipo,gen,centro,
         fechaAlta:b.fecha_alta,fechaBaja:b.fecha_baja,motivoBaja:b.motivo_baja,bajaNota:b.baja_nota};
     });
-    const ra=await sbGet('asistencias','select=*&limit=10000');
-    asis=ra.map(a=>{
-      // Normalize mes
-      let mes=a.mes||'';
-      if(mes==='26 de febrero'||mes==='febrero 2026') mes='Febrero26';
-      else if(mes==='26 de enero'||mes==='enero 2026') mes='Enero26';
-      else if(mes==='26 de marzo'||mes==='marzo 2026') mes='Marzo26';
-      return{...a,benId:a.ben_id,mes,acts:a.acts||{}};
-    });
-    hideL();updTop();renderInicio();
-  }catch(e){hideL();toast('❌ '+e.message.substring(0,120),'error');}
-}
+   let allAsis=[], asiOffset=0, asiBatch;
+do {
+  asiBatch=await sbGet('asistencias',`select=*&limit=1000&offset=${asiOffset}`);
+  allAsis=allAsis.concat(asiBatch);
+  asiOffset+=1000;
+} while(asiBatch.length===1000);
+asis=allAsis.map(a=>{
+  let mes=a.mes||'';
+  if(mes==='26 de febrero'||mes==='febrero 2026') mes='Febrero26';
+  else if(mes==='26 de enero'||mes==='enero 2026') mes='Enero26';
+  else if(mes==='26 de marzo'||mes==='marzo 2026') mes='Marzo26';
+  return{...a,benId:a.ben_id,mes,acts:a.acts||{}};
+});
 
 // ═══ NAV ═════════════════════════════════════════
 const NAV_IDS=['inicio','beneficiarios','asistencias','historial','unicos','resumen','cronograma','periodos','reportes'];
