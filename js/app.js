@@ -15,6 +15,8 @@ async function sbGet(t,p=''){
   const r=await fetch(SB_URL+'/rest/v1/'+t+(p?'?'+p:''),
     {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,
     'Range-Unit':'items','Range':'0-9999'}});
+  if(!r.ok)throw new Error(await r.text());
+  return r.json().catch(()=>[]);
 }
 async function sbPatch(t,filter,data){
   const r=await fetch(SB_URL+'/rest/v1/'+t+'?'+filter,
@@ -106,6 +108,15 @@ asis=allAsis.map(a=>{
   else if(mes==='26 de marzo'||mes==='marzo 2026') mes='Marzo26';
   return{...a,benId:a.ben_id,mes,acts:a.acts||{}};
 });
+    updTop();
+    nav('inicio');
+  }catch(e){
+    console.error('Error cargando datos:',e);
+    toast('❌ Error cargando datos: '+(e.message||'desconocido'),'error',5000);
+  }finally{
+    hideL();
+  }
+}
 
 // ═══ NAV ═════════════════════════════════════════
 const NAV_IDS=['inicio','beneficiarios','asistencias','historial','unicos','resumen','cronograma','periodos','reportes'];
