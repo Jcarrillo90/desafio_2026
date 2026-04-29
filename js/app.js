@@ -435,6 +435,11 @@ function renderHist(){
     if(mes&&a.mes!==mes)return false;
     if(q&&!(`${b.nombre||''} ${b.apat||''} ${b.amat||''} ${b.folio||''}`).toLowerCase().includes(q))return false;
     return true;
+  }).sort((a,b)=>{
+    const ba=getBen(a.benId),bb=getBen(b.benId);
+    const fa=parseInt(ba?.folio)||9999,fb=parseInt(bb?.folio)||9999;
+    if(fa!==fb)return fa-fb;
+    return MESES.indexOf(a.mes)-MESES.indexOf(b.mes);
   }).slice(0,300);
   const body=document.getElementById('hist-body'),empty=document.getElementById('hist-empty');
   if(!data.length){body.innerHTML='';empty.style.display='';return;}
