@@ -13,9 +13,8 @@ function getBen(benId){
 // ═══ SUPABASE ════════════════════════════════════
 async function sbGet(t,p=''){
   const r=await fetch(SB_URL+'/rest/v1/'+t+(p?'?'+p:''),
-    {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
-  if(!r.ok)throw new Error(await r.text());
-  return r.json();
+    {headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,
+    'Range-Unit':'items','Range':'0-9999'}});
 }
 async function sbPatch(t,filter,data){
   const r=await fetch(SB_URL+'/rest/v1/'+t+'?'+filter,
